@@ -3,47 +3,221 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.WeatherFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    <!-- TODO: Update blank fragment layout -->
+    android:backgroundTint="@color/colorPrimary"
+    tools:context=".fragment.WeatherFragment">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
-            android:textSize="100sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="LWeather" />
-        <TextView
-            android:textSize="100sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="LWeather" />
-        <TextView
-            android:textSize="100sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="LWeather" />
-        <TextView
-            android:textSize="100sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="LWeather" />
-        <TextView
-            android:textSize="100sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="LWeather" />
-        <TextView
-            android:textSize="100sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="LWeather" />
+        <RelativeLayout
 
 
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_weight="2.5"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+            <Button
 
+                android:drawableTint="#050505"
+                android:background="@drawable/bobutton"
+                android:drawableLeft="@drawable/location_24"
+                android:id="@+id/city"
+                android:textAllCaps="false"
+                android:text="Hà Nội"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+<!--            <LinearLayout-->
+<!--                android:id="@+id/city"-->
+<!--                android:background="#60666161"-->
+<!--                android:padding="5dp"-->
+<!--                android:layout_width="100dp"-->
+<!--                android:layout_height="30dp">-->
+<!--                <ImageView-->
 
+<!--                    android:adjustViewBounds="true"-->
+
+<!--                    android:src="@drawable/location_icon"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="30dp"/>-->
+<!--                <TextView-->
+<!--                    android:id="@+id/city_name"-->
+<!--                    android:textSize="24sp"-->
+<!--                    android:textColor="#090808"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:text="Hà Nội"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"/>-->
+<!--            </LinearLayout>-->
+            <TextView
+                android:id="@+id/temp"
+                android:textColor="#050505"
+                android:text="32°C"
+                android:textSize="70sp"
+                android:layout_below="@id/city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:layout_below="@id/temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+
+                    android:src="@drawable/weather_icon"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"/>
+                <TextView
+                    android:id="@+id/weather_status"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#050505"
+                    android:text="Cloud"
+                    android:textSize="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+        <View
+
+            android:background="#3C4081"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <RelativeLayout
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textColor="@color/colorBlur"
+                            android:text="Chance of Rain"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:textSize="@dimen/fontThongSo"
+                            android:textColor="#050505"
+                            android:text="40%"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textColor="@color/colorBlur"
+                            android:text="Realfeel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:textSize="@dimen/fontThongSo"
+                            android:textColor="#050505"
+                            android:text="32°C"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+            <View
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
+                android:background="#3C4081"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <RelativeLayout
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textColor="@color/colorBlur"
+                            android:text="Wind"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:textSize="@dimen/fontThongSo"
+                            android:textColor="#050505"
+                            android:text="21 km/h"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textColor="@color/colorBlur"
+                            android:text="Humidty"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:textSize="@dimen/fontThongSo"
+                            android:textColor="#050505"
+                            android:text="74%"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <View
+            android:background="#3C4081"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <LinearLayout
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/forecast"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
+        </LinearLayout>
     </LinearLayout>
+
 
 </FrameLayout>
