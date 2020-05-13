@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="50dp">
+    <View
+        android:background="@color/text_Color"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:textColor="@color/text_Color"
+            android:id="@+id/daily_dt"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/font_daily"
+            android:text="Fri, 15 May"
+            android:layout_weight="4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"></TextView>
+        <ImageView
+            android:padding="3dp"
+            android:id="@+id/daily_icon"
+            android:src="@drawable/weather_icon"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"></ImageView>
+        <TextView
+            android:textColor="@color/text_Color"
+            android:gravity="center_vertical|right"
+            android:textSize="@dimen/font_daily"
+            android:text="33 / 27"
+            android:id="@+id/daily_tempmin"
+            android:layout_weight="4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"></TextView>
+    </LinearLayout>
+
+</LinearLayout>

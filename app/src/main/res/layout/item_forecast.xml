@@ -1,38 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
+    android:layout_height="100dp"
     android:orientation="vertical"
-    android:paddingVertical="20dp"
-    android:paddingHorizontal="20dp"
-    android:layout_height="wrap_content">
-        <TextView
-            android:layout_gravity="center_horizontal"
-    android:textSize="20sp"
-    android:id="@+id/time"
-    android:text="11:00"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"/>
+    android:paddingHorizontal="10dp"
+    android:paddingVertical="5dp">
 
     <TextView
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="20dp"
-        android:id="@+id/temperature"
+        android:textColor="@color/text_Color"
+        android:layout_marginTop="10dp"
+        android:id="@+id/time_forecast"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="11:00"
+        android:textSize="10sp" />
 
-        android:layout_marginTop="20dp"
+    <TextView
+        android:textColor="@color/text_Color"
+        android:id="@+id/temp_forecast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+
+        android:layout_marginBottom="10dp"
         android:gravity="center"
         android:text="32°C"
-        android:textSize="20sp" />
+        android:textSize="12sp" />
+
 
     <ImageView
 
-        android:id="@+id/ic_weather"
+        android:id="@+id/ic_weather_forecast"
         android:layout_width="20dp"
-        android:layout_height="24dp"
+        android:layout_height="20dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="0dp"
         android:adjustViewBounds="true"
+        android:scaleType="fitXY"
         android:src="@drawable/weather_icon" />
 
 

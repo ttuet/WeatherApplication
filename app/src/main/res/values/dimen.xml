@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="fontThongSo">25sp</dimen>
+    <dimen name="fontTemp">90sp</dimen>
+    <dimen name="font_daily">25sp</dimen>
 </resources>
