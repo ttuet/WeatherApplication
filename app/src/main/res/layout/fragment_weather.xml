@@ -20,15 +20,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="300dp">
-            <TextView
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:textSize="25sp"
-                android:layout_marginTop="20dp"
-                android:text="Hà Nội"
-                android:textColor="@color/text_Color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+
             <TextView
 
                 android:layout_centerInParent="true"
@@ -41,7 +33,7 @@
                 android:textSize="@dimen/fontTemp" />
 
             <TextView
-                android:id="@+id/current_description"
+                    android:id="@+id/current_description"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_below="@id/current_temp"
@@ -87,8 +79,223 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/daily"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="350dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        <View
+            android:background="@color/text_Color"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <TextView
+            android:textColor="@color/text_Color"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="Mức dễ chịu"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <TextView
+
+                    android:textSize="18sp"
+                    android:textColor="@color/text_Color"
+                    android:gravity="center"
+                    android:text="Độ ẩm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <pl.pawelkleczkowski.customgauge.CustomGauge
+                        android:layout_gravity="center"
+                        android:id="@+id/gauge"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:layout_centerHorizontal="true"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="10dp"
+                        app:gaugeEndValue="100"
+                        app:gaugeStartValue="0"
+                        app:gaugePointEndColor="#fff"
+                        app:gaugePointStartColor="#fff"
+                        app:gaugeStartAngle="120"
+                        app:gaugeStrokeCap="ROUND"
+                        app:gaugeStrokeColor="#9C9999"
+                        app:gaugeStrokeWidth="10dp"
+                        app:gaugeSweepAngle="295" />
+                    <TextView
+                        android:id="@+id/humidity"
+                        android:textSize="30sp"
+                        android:layout_gravity="center"
+                        android:text="90%"
+                        android:textColor="@color/text_Color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <LinearLayout
+                        android:layout_marginBottom="5dp"
+                        android:layout_gravity="bottom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textColor="@color/text_Color"
+                            android:textSize="14sp"
+                            android:paddingRight="30dp"
+                            android:gravity="right"
+                            android:text="0"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"/>
+                        <TextView
+                            android:textColor="@color/text_Color"
+                            android:paddingLeft="20dp"
+                            android:textSize="14sp"
+                            android:text="100"
+                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"/>
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:paddingLeft="20dp"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+                    <TextView
+
+                        android:textColor="@color/text_Color"
+                        android:text="Cảm giác: "
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+                    <TextView
+                        android:id="@+id/feel_like"
+                        android:textColor="@color/text_Color"
+                        android:text="30"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:paddingLeft="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+                    <TextView
+                        android:textColor="@color/text_Color"
+                        android:layout_marginRight="10dp"
+                        android:text="Tia uv: "
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+                    <TextView
+                        android:id="@+id/uv"
+                        android:textColor="@color/text_Color"
+                        android:text="1"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+        <View
+            android:background="@color/text_Color"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+        <TextView
+            android:textColor="@color/text_Color"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginBottom="10dp"
+            android:text="Gió"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <FrameLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <pl.droidsonroids.gif.GifImageView
+                        android:layout_gravity="center"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:tint="@color/text_Color"
+                        android:src="@drawable/turbines"
+
+                        />
+
+
+                </FrameLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:paddingLeft="20dp"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+                    <TextView
+
+                        android:textColor="@color/text_Color"
+                        android:text="Hướng gió "
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+                    <TextView
+                        android:id="@+id/wind"
+                        android:textColor="@color/text_Color"
+                        android:text="270"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:paddingLeft="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+                    <TextView
+                        android:textColor="@color/text_Color"
+                        android:layout_marginRight="10dp"
+                        android:text="Tốc độ "
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+                    <TextView
+                        android:id="@+id/wind_speed"
+                        android:textColor="@color/text_Color"
+                        android:text="3 m/s"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
 
 
     </LinearLayout>

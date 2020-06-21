@@ -5,68 +5,96 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/imgd"
-    tools:context=".MainActivity">
+    tools:context=".Activity.MainActivity">
+    <RelativeLayout
+        android:id="@+id/toolbarrr"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:layout_margin="5dp"
+            android:tint="@color/text_Color"
+            android:src="@drawable/ic_city"
+            android:id="@+id/iconcity"
+            android:layout_width="36dp"
+            android:layout_height="36dp"/>
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:layout_marginTop="10dp"
+            android:text="Hà Nội"
+            android:textColor="@color/text_Color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:layout_margin="5dp"
+            android:tint="@color/text_Color"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_setting"
+            android:id="@+id/iconsetting"
+            android:layout_width="36dp"
+            android:layout_height="36dp"/>
+    </RelativeLayout>
+<!--    <com.google.android.material.tabs.TabLayout-->
+<!--        android:layout_alignParentTop="true"-->
+<!--        android:id="@+id/tab_layout"-->
+<!--        android:layout_marginRight="50dp"-->
+<!--        android:layout_marginLeft="50dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="bottom"-->
 
+<!--        app:tabIndicatorGravity="bottom"-->
+<!--        app:tabIndicator="@drawable/bogoc"-->
+<!--        app:tabGravity="center"-->
+<!--        app:tabIndicatorHeight="4dp"-->
+<!--        app:tabIndicatorFullWidth="false"-->
+<!--        app:tabSelectedTextColor="@color/colorPrimary"-->
+<!--        app:tabTextAppearance="@style/CustomTextAppearanceTab"-->
+<!--        app:tabTextColor="#76767E">-->
+
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--            android:id="@+id/tab_weather"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:icon="@drawable/cloud_icon"-->
+
+<!--            android:outlineAmbientShadowColor="@color/colorPrimary"-->
+<!--            android:outlineSpotShadowColor="@color/colorPrimary"-->
+<!--            android:text="Weather">-->
+
+<!--        </com.google.android.material.tabs.TabItem>-->
+
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--            android:id="@+id/tab_location"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:icon="@drawable/location_icon"-->
+
+<!--            android:outlineAmbientShadowColor="@color/colorPrimary"-->
+<!--            android:outlineSpotShadowColor="@color/colorPrimary"-->
+<!--            android:text="Location">-->
+
+<!--        </com.google.android.material.tabs.TabItem>-->
+
+<!--        <com.google.android.material.tabs.TabItem-->
+<!--            android:id="@+id/tab_setting"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+
+<!--            android:icon="@drawable/settings_icon"-->
+<!--            android:outlineAmbientShadowColor="@color/colorPrimary"-->
+<!--            android:outlineSpotShadowColor="@color/colorPrimary"-->
+<!--            android:text="Setting">-->
+
+<!--        </com.google.android.material.tabs.TabItem>-->
+<!--    </com.google.android.material.tabs.TabLayout>-->
     <androidx.viewpager.widget.ViewPager
-        android:layout_above="@id/tab_layout"
+        android:layout_below="@id/toolbarrr"
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </androidx.viewpager.widget.ViewPager>
-    <View
-        android:layout_below="@id/view_pager"
-        android:background="@color/colorPrimary"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"/>
-    <com.google.android.material.tabs.TabLayout
-        android:layout_alignParentBottom="true"
-        android:id="@+id/tab_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:tabIconTint="#76767E"
-        app:tabIconTintMode="src_atop"
-        app:tabIndicator="@drawable/bogoc"
-        app:tabGravity="fill"
-        app:tabIndicatorHeight="4dp"
-        app:tabIndicatorFullWidth="false"
-        app:tabSelectedTextColor="@color/colorPrimary"
-        app:tabTextAppearance="@style/CustomTextAppearanceTab"
-        app:tabTextColor="#76767E">
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_weather"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:icon="@drawable/cloud_icon"
 
-            android:outlineAmbientShadowColor="@color/colorPrimary"
-            android:outlineSpotShadowColor="@color/colorPrimary"
-            android:text="Weather">
-
-        </com.google.android.material.tabs.TabItem>
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_location"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:icon="@drawable/location_icon"
-            android:outlineAmbientShadowColor="@color/colorPrimary"
-            android:outlineSpotShadowColor="@color/colorPrimary"
-            android:text="Location">
-
-        </com.google.android.material.tabs.TabItem>
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/tab_setting"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-
-            android:icon="@drawable/settings_icon"
-            android:outlineAmbientShadowColor="@color/colorPrimary"
-            android:outlineSpotShadowColor="@color/colorPrimary"
-            android:text="Setting">
-
-        </com.google.android.material.tabs.TabItem>
-    </com.google.android.material.tabs.TabLayout>
 </RelativeLayout>

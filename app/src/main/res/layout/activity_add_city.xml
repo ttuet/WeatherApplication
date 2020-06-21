@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/imgd"
+    android:layout_height="match_parent"
+    tools:context=".Activity.AddCityActivity">
+    <LinearLayout
+        android:id="@+id/toolbarr"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:id="@+id/icon_back"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            android:textColor="@color/text_Color"
+            android:text="Thêm thành phố"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+    <FrameLayout
+        android:layout_below="@id/toolbarr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <EditText
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:layout_toLeftOf="@id/btn_search"
+                    android:id="@+id/edt_search"
+                    android:paddingLeft="20dp"
+                    android:textColorHint="#75FFFFFF"
+                    android:hint="Tìm thành phố"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/text_Color"
+                    android:background="@drawable/bogoc"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"/>
+
+                <ImageButton
+                    android:id="@+id/btn_search"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/bogoc2"
+                    android:src="@drawable/ic_search"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/search_city_recycler"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#880C0C0C"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+</RelativeLayout>
