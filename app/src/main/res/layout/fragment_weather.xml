@@ -6,10 +6,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
 
-    tools:context=".fragment.WeatherFragment">
+    tools:context=".VIew.WeatherFragment">
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
     <LinearLayout
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
@@ -58,7 +59,7 @@
         </RelativeLayout>
 
         <View
-            android:background="@color/text_Color"
+            android:background="@color/colorBlur"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
 
@@ -69,6 +70,7 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
+
                 android:id="@+id/forecast"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -77,12 +79,14 @@
 
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
+
+
             android:id="@+id/daily"
             android:layout_width="match_parent"
             android:layout_height="350dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
         <View
-            android:background="@color/text_Color"
+            android:background="@color/colorBlur"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
         <TextView
@@ -213,7 +217,7 @@
             </LinearLayout>
         </LinearLayout>
         <View
-            android:background="@color/text_Color"
+            android:background="@color/colorBlur"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
         <TextView

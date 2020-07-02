@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/imgd"
-    tools:context=".Activity.MainActivity">
+    android:background="@drawable/background"
+    tools:context=".VIew.MainActivity">
     <RelativeLayout
         android:id="@+id/toolbarrr"
         android:layout_width="match_parent"
@@ -18,6 +18,7 @@
             android:layout_width="36dp"
             android:layout_height="36dp"/>
         <TextView
+            android:id="@+id/name_city"
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:textSize="25sp"

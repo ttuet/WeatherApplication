@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="@drawable/imgd"
     android:layout_height="match_parent"
-    tools:context=".Activity.AddCityActivity">
+    tools:context=".VIew.AddCityActivity">
     <LinearLayout
         android:id="@+id/toolbarr"
         android:layout_width="match_parent"

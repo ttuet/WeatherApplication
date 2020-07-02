@@ -12,34 +12,40 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.weatherapplication.Model.Temp;
 import com.example.weatherapplication.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
-    private List<String> timeList;
-    private List<String> temperatureList;
-    private List<String> iconList;
+    private List<Temp> tempList;
     private LayoutInflater inflater;
     private Context mContext;
     private ItemClickListener mClickListener;
-    public MyRecyclerViewAdapter(Context context, List<String> timeList, List<String> temperatureList, List<String> iconList) {
+    public MyRecyclerViewAdapter(Context context, List<Temp> tempList) {
         this.inflater = LayoutInflater.from(context);
         this.mContext = context;
-        this.timeList= timeList;
-        this.iconList = iconList;
-        this.temperatureList = temperatureList;
+        this.tempList = tempList;
     }
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.item_forecast, parent, false);
         return new ViewHolder(view);
     }
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        String time = timeList.get(position);
-        String temp = temperatureList.get(position);
-        String icon = iconList.get(position);
-        holder.time.setText(time+":00");
-        holder.temperature.setText(temp+"°");
+        String time = tempList.get(position).getTime();
+        String temp = tempList.get(position).getTemp();
+        String icon = tempList.get(position).getIcon();
+        long timeL = Long.parseLong(time) * (long) 1000;
+        Date date = new Date(timeL);
+        Locale locale = new Locale("vi");
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm ",locale);
+        format.setTimeZone(TimeZone.getTimeZone("GMT+7"));
+        holder.time.setText(format.format(date));
+        holder.temperature.setText(Math.round(Double.parseDouble(temp))+"°");
         String iconUrl = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
 
         Glide.with(mContext).load(iconUrl)
@@ -49,7 +55,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     }
     public int getItemCount() {
-        return timeList.size();
+        return tempList.size();
     }
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -72,7 +78,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         }
     }
     public String getItem(int id) {
-        return timeList.get(id);
+        return tempList.get(id).getTime();
     }
 
     // allows clicks events to be caught

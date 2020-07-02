@@ -1,34 +1,26 @@
-package com.example.weatherapplication.Activity;
+package com.example.weatherapplication.VIew;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.adapters.ViewBindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.weatherapplication.Model.City;
 import com.example.weatherapplication.R;
+import com.example.weatherapplication.Utils;
 import com.example.weatherapplication.adapter.SearchCityAdapter;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import static android.app.PendingIntent.getActivity;
 
 public class AddCityActivity extends AppCompatActivity {
     RecyclerView recyclerView;
@@ -45,17 +37,20 @@ public class AddCityActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_city);
         addControl();
+
         Intent intent= getIntent();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String s = editText.getText().toString();
-                setAdapter(s);
+
+                downloadCityJson();
 
 
             }
+
+
         });
         icon_Back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +58,29 @@ public class AddCityActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+    }
+
+
+
+
+    private void downloadCityJson() {
+
+
+        try{
+          String jsonListCity = Utils.getJsonFromAssets(getApplicationContext(),"list-city-vn.json");
+          Log.i("data", jsonListCity);
+          SharedPreferences  cityPre = getApplicationContext().getSharedPreferences("cityList",MODE_PRIVATE);
+
+
+          cityPre.edit().putString("json",jsonListCity).commit();
+
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
 
     }
 

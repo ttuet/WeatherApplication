@@ -1,0 +1,43 @@
+[
+  {
+    "id": 1581129,
+    "name": "Thủ Ðô Hà Nội",
+    "state": "",
+    "country": "VN",
+    "coord": {
+      "lon": 105.883331,
+      "lat": 21.116671
+    }
+  },
+  {
+    "id": 8201616,
+    "name": "Huyen Ba Vi",
+    "state": "",
+    "country": "VN",
+    "coord": {
+      "lon": 105.430183,
+      "lat": 21.1999
+    }
+  },
+{
+    "id": 1559970,
+    "name": "Tỉnh Ninh Bình",
+    "state": "",
+    "country": "VN",
+    "coord": {
+      "lon": 105.833328,
+      "lat": 20.25
+    }
+  },
+
+{
+    "id": 1559971,
+    "name": "Tỉnh Ninh Thuận",
+    "state": "",
+    "country": "VN",
+    "coord": {
+      "lon": 108.833328,
+      "lat": 11.75
+    }
+  }
+]

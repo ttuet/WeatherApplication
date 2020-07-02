@@ -35,9 +35,7 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
     implementation 'pl.pawelkleczkowski.customgauge:CustomGauge:1.0.4'
     implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.5'
-    implementation 'com.google.firebase:firebase-core:16.0.4'
-    implementation 'com.google.firebase:firebase-database:16.0.4'
-    implementation 'com.google.firebase:firebase-auth:16.0.5'
+
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'

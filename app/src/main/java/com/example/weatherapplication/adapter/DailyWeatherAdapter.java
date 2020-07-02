@@ -11,33 +11,40 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.weatherapplication.Model.Temp;
 import com.example.weatherapplication.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapter.ViewHolder> {
-    private List<String> timeList;
-    private List<String> temperatureList;
-    private List<String> iconList;
+    private List<Temp> tempList;
     private LayoutInflater inflater;
     private Context mContext;
     private DailyWeatherAdapter.ItemClickListener mClickListener;
-    public DailyWeatherAdapter(Context context, List<String> timeList, List<String> temperatureList, List<String> iconList) {
+    public DailyWeatherAdapter(Context context, List<Temp> tempList) {
         this.inflater = LayoutInflater.from(context);
         this.mContext = context;
-        this.timeList= timeList;
-        this.iconList = iconList;
-        this.temperatureList = temperatureList;
+        this.tempList = tempList;
     }
     public DailyWeatherAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.item_daily, parent, false);
         return new DailyWeatherAdapter.ViewHolder(view);
     }
     public void onBindViewHolder(@NonNull DailyWeatherAdapter.ViewHolder holder, int position) {
-        String time = timeList.get(position);
-        String temp = temperatureList.get(position);
-        String icon = iconList.get(position);
-        holder.time.setText(time);
+        String time = tempList.get(position).getTime();
+        String temp = tempList.get(position).getTemp();
+        String icon = tempList.get(position).getIcon();
+
+        long timeL = Long.parseLong(time) * (long) 1000;
+        Date date = new Date(timeL);
+        Locale locale = new Locale("vi");
+        SimpleDateFormat format = new SimpleDateFormat("E, dd MMM ",locale);
+        format.setTimeZone(TimeZone.getTimeZone("GMT+7"));
+        holder.time.setText(format.format(date));
         holder.temperature.setText(temp);
         String iconUrl = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
 
@@ -48,7 +55,7 @@ public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapte
 
     }
     public int getItemCount() {
-        return timeList.size();
+        return tempList.size();
     }
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -71,7 +78,7 @@ public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapte
         }
     }
     public String getItem(int id) {
-        return timeList.get(id);
+        return tempList.get(id).getTime();
     }
 
     // allows clicks events to be caught
