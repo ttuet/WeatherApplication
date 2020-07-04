@@ -16,7 +16,8 @@ import android.widget.ImageView;
 import com.example.weatherapplication.Model.City;
 import com.example.weatherapplication.R;
 import com.example.weatherapplication.Utils;
-import com.example.weatherapplication.adapter.SearchCityAdapter;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 
@@ -71,9 +72,11 @@ public class AddCityActivity extends AppCompatActivity {
           String jsonListCity = Utils.getJsonFromAssets(getApplicationContext(),"list-city-vn.json");
           Log.i("data", jsonListCity);
           SharedPreferences  cityPre = getApplicationContext().getSharedPreferences("cityList",MODE_PRIVATE);
+            JSONArray jsonArray = new JSONArray(jsonListCity);
+            cityPre.edit().putInt("number",jsonArray.length()).apply();
 
+          cityPre.edit().putString("json",jsonListCity).apply();
 
-          cityPre.edit().putString("json",jsonListCity).commit();
 
 
         }

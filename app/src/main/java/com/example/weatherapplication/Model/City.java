@@ -6,15 +6,15 @@ public class City {
     private String id;
     private String name;
     private String country;
-    private String state;
-    private Coord coord;
+    private String lat ;
+    private String lon;
 
-    public City(String id, String name, String state,String country,Coord coord){
+    public City(String id, String name,String country,String lat, String lon){
         this.id = id;
         this.name = name;
         this.country = country;
-        this.state = state;
-        this.coord = coord;
+        this.lat = lat;
+        this.lon = lon;
 
     }
 
@@ -28,11 +28,20 @@ public class City {
         return country;
     }
     public String getLat(){
-        return coord.getLat();
+        return lat;
     }
     public String getLon(){
-        return coord.getLon();
+        return lon;
     }
+
+    public void setLon(String lon) {
+        this.lon = lon;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
 
     @NonNull
     @Override
@@ -40,19 +49,7 @@ public class City {
         return "City{" +
                 "id='" + id + '\'' +
                 ", name=" + name +
-                ", coord=" + coord.getLat() +"," +coord.getLon()+
+
                 '}';
-    }
-}
-class Coord{
-    String lat;
-    String lon;
-
-    public String getLat() {
-        return lat;
-    }
-
-    public String getLon() {
-        return lon;
     }
 }

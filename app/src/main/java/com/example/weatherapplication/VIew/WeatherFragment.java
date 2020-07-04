@@ -16,8 +16,6 @@ import android.widget.Toast;
 
 import com.example.weatherapplication.Model.Temp;
 import com.example.weatherapplication.R;
-import com.example.weatherapplication.adapter.DailyWeatherAdapter;
-import com.example.weatherapplication.adapter.MyRecyclerViewAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +27,7 @@ import java.util.List;
 import pl.pawelkleczkowski.customgauge.CustomGauge;
 
 
-public class WeatherFragment extends Fragment implements MyRecyclerViewAdapter.ItemClickListener {
+public class WeatherFragment extends Fragment  {
     MyRecyclerViewAdapter myRecyclerViewAdapter;
     DailyWeatherAdapter dailyAdapter;
 
@@ -49,6 +47,9 @@ public class WeatherFragment extends Fragment implements MyRecyclerViewAdapter.I
     RecyclerView dailyForecast;
     CustomGauge customGauge;
     String id;
+
+
+    SharedPreferences pre;
 
 
 
@@ -78,11 +79,15 @@ public class WeatherFragment extends Fragment implements MyRecyclerViewAdapter.I
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL,false);
         dailyForecast.setLayoutManager(linearLayoutManager);
         recyclerView.setLayoutManager(layoutManager);
-        myRecyclerViewAdapter.setClickListener(this);
         recyclerView.setAdapter(myRecyclerViewAdapter);
         dailyForecast.setAdapter(dailyAdapter);
 
-
+        pre.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+                mapValue();
+            }
+        });
 
 
 
@@ -107,7 +112,7 @@ public class WeatherFragment extends Fragment implements MyRecyclerViewAdapter.I
     private void mapValue() {
         dailyList = new ArrayList<Temp>();
         hourlyList = new ArrayList<Temp>();
-        SharedPreferences pre = getContext().getSharedPreferences("Weather",Context.MODE_PRIVATE);
+        pre = getContext().getSharedPreferences("Weather",Context.MODE_PRIVATE);
         String result = pre.getString(id,null);
         JSONObject jsonObject = null;
         try {
@@ -186,10 +191,7 @@ public class WeatherFragment extends Fragment implements MyRecyclerViewAdapter.I
 
     }
 
-    public void onItemClick(View view,int position) {
-        Toast.makeText(view.getContext(), "You clicked " + myRecyclerViewAdapter.getItem(position) + " on item position " + position, Toast.LENGTH_SHORT).show();
 
-    }
 
     public String getIdc(){
         return id;

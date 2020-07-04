@@ -37,47 +37,34 @@ public class LoadWeatherWorker extends Worker{
         SharedPreferences cityPre = getApplicationContext().getSharedPreferences("cityList",MODE_PRIVATE);
 
         String jsonListCity = cityPre.getString("json","i");
-        Gson gson = new Gson();
-        Type listCityType = new TypeToken<List<City>>(){}.getType();
-        Log.i("test", "doWork: "+jsonListCity);
-        List<City> cityList = gson.fromJson(jsonListCity,listCityType);
-        pre.edit().putInt("number",cityList.size());
+        if(!jsonListCity.equalsIgnoreCase("i")) {
+            Gson gson = new Gson();
+            Type listCityType = new TypeToken<List<City>>() {
+            }.getType();
+
+            List<City> cityList = gson.fromJson(jsonListCity, listCityType);
+
 //        String url ="https://api.openweathermap.org/data/2.5/onecall?lat=21.02&lon=105.84&appid=c3b45d9603f611484b21cba61752dd81&units=metric&lang=vi";
 
-        try {
-            for(int i=0;i<cityList.size();i++){
+            try {
+                for (int i = 0; i < cityList.size(); i++) {
 
 
-                String response = getJsonFromServer(addUrl(cityList.get(i).getLat(),cityList.get(i).getLon(),key));
-                pre.edit().putString(cityList.get(i).getId(),response).commit();
+                    String response = Utils.getJsonFromServer(addUrl(cityList.get(i).getLat(), cityList.get(i).getLon(), key));
+                    pre.edit().putString(cityList.get(i).getId(), response).apply();
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.i("Test", "doWork: " + "Faill");
             }
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return Result.success();
     }
 
-    private void getCityList() throws IOException {
 
-    }
 
-    public static String getJsonFromServer(String url) throws IOException {
 
-        BufferedReader inputStream = null;
-
-        URL jsonUrl = new URL(url);
-        URLConnection dc = jsonUrl.openConnection();
-
-        dc.setConnectTimeout(5000);
-        dc.setReadTimeout(5000);
-
-        inputStream = new BufferedReader(new InputStreamReader(
-                dc.getInputStream()));
-        // read the JSON results into a string
-        String jsonResult = inputStream.readLine();
-        return jsonResult;
-    }
     public String addUrl(String lat, String lon,String key){
         return "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat+"&lon="+lon+"&appid="+key+"&units=metric&lang=vi";
 

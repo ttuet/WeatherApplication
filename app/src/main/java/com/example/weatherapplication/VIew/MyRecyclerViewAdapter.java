@@ -1,4 +1,4 @@
-package com.example.weatherapplication.adapter;
+package com.example.weatherapplication.VIew;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -20,32 +20,31 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapter.ViewHolder> {
+public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
     private List<Temp> tempList;
     private LayoutInflater inflater;
     private Context mContext;
-    private DailyWeatherAdapter.ItemClickListener mClickListener;
-    public DailyWeatherAdapter(Context context, List<Temp> tempList) {
+
+    public MyRecyclerViewAdapter(Context context, List<Temp> tempList) {
         this.inflater = LayoutInflater.from(context);
         this.mContext = context;
         this.tempList = tempList;
     }
-    public DailyWeatherAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.item_daily, parent, false);
-        return new DailyWeatherAdapter.ViewHolder(view);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = inflater.inflate(R.layout.item_forecast, parent, false);
+        return new ViewHolder(view);
     }
-    public void onBindViewHolder(@NonNull DailyWeatherAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String time = tempList.get(position).getTime();
         String temp = tempList.get(position).getTemp();
         String icon = tempList.get(position).getIcon();
-
         long timeL = Long.parseLong(time) * (long) 1000;
         Date date = new Date(timeL);
         Locale locale = new Locale("vi");
-        SimpleDateFormat format = new SimpleDateFormat("E, dd MMM ",locale);
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm ",locale);
         format.setTimeZone(TimeZone.getTimeZone("GMT+7"));
         holder.time.setText(format.format(date));
-        holder.temperature.setText(temp);
+        holder.temperature.setText(Math.round(Double.parseDouble(temp))+"°");
         String iconUrl = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
 
         Glide.with(mContext).load(iconUrl)
@@ -57,7 +56,7 @@ public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapte
     public int getItemCount() {
         return tempList.size();
     }
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder  {
 
         TextView time;
         TextView temperature;
@@ -65,29 +64,23 @@ public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapte
 
         ViewHolder(View itemView) {
             super(itemView);
-            time = itemView.findViewById(R.id.daily_dt);
-            temperature = itemView.findViewById(R.id.daily_tempmin);
-            iconWeather = itemView.findViewById(R.id.daily_icon);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+            time = itemView.findViewById(R.id.time_forecast);
+            temperature = itemView.findViewById(R.id.temp_forecast);
+            iconWeather = itemView.findViewById(R.id.ic_weather_forecast);
 
         }
+
+
     }
     public String getItem(int id) {
         return tempList.get(id).getTime();
     }
 
-    // allows clicks events to be caught
-    public void setClickListener(DailyWeatherAdapter.ItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
-    }
 
-    // parent activity will implement this method to respond to click events
-    public interface ItemClickListener {
-        void onItemClick(View view, int position);
-    }
+
+
+
+
 }
+
+
