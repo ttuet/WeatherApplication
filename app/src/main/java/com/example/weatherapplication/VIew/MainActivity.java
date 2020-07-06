@@ -41,12 +41,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     ViewPager viewPager;
     ImageView iconCity;
-    
+    ImageView iconSetting;
     TextView cityName;
     List<City> cityList;
     boolean checkGPS = false;
     SharedPreferences preCity;
-
+    SharedPreferences glVari;
     Gson gson;
     Location currentLocation;
     LocationManager locationManager;
@@ -62,13 +62,35 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         addControl();
         getLocation();
         preCity = getApplicationContext().getSharedPreferences("cityList", MODE_PRIVATE);
+        glVari = getApplicationContext().getSharedPreferences("Vari",MODE_PRIVATE);
+        glVari.edit().putString("doC", "°C").putInt("periodic", 1).apply();
+        Log.i("MAin", "onCreate: "+ glVari.getString("doC","°C"));
+
+        onSharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+                mangerController.cancelWork();
+                int time = glVari.getInt("periodic",1);
+                mangerController.setWork(time);
+                createViewPager(viewPager);
+            }
+        };
+        glVari.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+                mangerController.cancelWork();
+                int time = glVari.getInt("periodic",1);
+                mangerController.setWork(time);
+            }
+        });
         preCity.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener);
         createViewPager(viewPager);
         mangerController = new WorkMangerController(getApplicationContext());
         SharedPreferences pre = getApplicationContext().getSharedPreferences("Weather",MODE_PRIVATE);
         String jso = pre.getString("json","i");
         if(jso.equalsIgnoreCase("i")) {
-            mangerController.setWork();
+            int time = glVari.getInt("periodic",1);
+            mangerController.setWork(time);
         }
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -96,6 +118,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
             }
         });
+        iconSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
     }
@@ -114,17 +143,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     private void addControl() {
         viewPager = findViewById(R.id.view_pager);
         iconCity = findViewById(R.id.iconcity);
+        iconSetting = findViewById(R.id.iconsetting);
         cityName = findViewById(R.id.name_city);
         cityList = new ArrayList<City>();
         gson = new Gson();
-        onSharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            @Override
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-                mangerController.cancelWork();
-                mangerController.setWork();
-                createViewPager(viewPager);
-            }
-        };
+
 
     }
 

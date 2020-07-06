@@ -72,12 +72,14 @@ public class ListCityAdapter extends RecyclerView.Adapter<ListCityAdapter.ViewHo
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-
-                    int[] arrStatus = new int[]{0,8};
-                    temperature.setVisibility(arrStatus[1-i]);
-                    description.setVisibility(arrStatus[1-i]);
-                    delete.setVisibility(arrStatus[i]);
-                    i=1-i;
+                    int p = getLayoutPosition();
+                    if(p!=0) {
+                        int[] arrStatus = new int[]{0, 8};
+                        temperature.setVisibility(arrStatus[1 - i]);
+                        description.setVisibility(arrStatus[1 - i]);
+                        delete.setVisibility(arrStatus[i]);
+                        i = 1 - i;
+                    }
                     return false;
                 }
 

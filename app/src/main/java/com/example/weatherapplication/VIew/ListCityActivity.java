@@ -44,6 +44,7 @@ public class ListCityActivity extends AppCompatActivity  {
     ListCityAdapter listCityAdapter;
     List<String> nameList,tempList,descList;
     ProgressDialog dialog;
+    SharedPreferences Vari;
     SharedPreferences pre ;
     SharedPreferences preCity ;
     SharedPreferences.OnSharedPreferenceChangeListener onSharedPreferenceChangeListener;
@@ -58,6 +59,7 @@ public class ListCityActivity extends AppCompatActivity  {
         dialog.setTitle("Thông báo");
         dialog.setMessage("Đang tải...");
         dialog.setCanceledOnTouchOutside(false);
+        Vari = getApplicationContext().getSharedPreferences("Vari",MODE_PRIVATE);
         pre = getApplicationContext().getSharedPreferences("Weather",MODE_PRIVATE);
         preCity = getApplicationContext().getSharedPreferences("cityList",MODE_PRIVATE);
         onSharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
@@ -71,6 +73,7 @@ public class ListCityActivity extends AppCompatActivity  {
                 listCityView.setAdapter(listCityAdapter);
             }
         };
+        Vari.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener);
         preCity.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener);
         addValue();
         mapvalue();
@@ -97,6 +100,11 @@ public class ListCityActivity extends AppCompatActivity  {
 private  void mapvalue(){
     String jsonCity = preCity.getString("json","i");
     Gson gson = new Gson();
+    double t =0;
+    String doC = Vari.getString("doC","°C");
+    if(doC.equalsIgnoreCase("°F")){
+        t = 273;
+    }
     Type listCityType = new TypeToken<List<City>>() {
     }.getType();
 
@@ -112,7 +120,7 @@ private  void mapvalue(){
                 JSONArray weather = current.getJSONArray("weather");
                 String desc = weather.getJSONObject(0).getString("description");
                 nameList.add(cityList.get(i).getCity());
-                tempList.add(Math.round(Double.parseDouble(temp))+"");
+                tempList.add(Math.round(Double.parseDouble(temp)+t)+"");
                 descList.add(desc);
             } catch (JSONException e) {
                 e.printStackTrace();

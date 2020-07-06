@@ -49,7 +49,7 @@ public class WeatherFragment extends Fragment  {
     CustomGauge customGauge;
     String id;
 
-
+    SharedPreferences Var;
     SharedPreferences pre;
     SharedPreferences.OnSharedPreferenceChangeListener onSharedPreferenceChangeListener;
 
@@ -103,18 +103,25 @@ public class WeatherFragment extends Fragment  {
         wind_deg = view.findViewById(R.id.wind);
         wind_speed = view.findViewById(R.id.wind_speed);
         progressBar = view.findViewById(R.id.progrss);
+        Var = getContext().getSharedPreferences("Vari",Context.MODE_PRIVATE);
+        pre = getContext().getSharedPreferences("Weather",Context.MODE_PRIVATE);
         onSharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
                 mapValue();
             }
         };
+        Var.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener);
     }
 
     private void mapValue() {
         dailyList = new ArrayList<Temp>();
         hourlyList = new ArrayList<Temp>();
-        pre = getContext().getSharedPreferences("Weather",Context.MODE_PRIVATE);
+        String doc = Var.getString("doC","°C");
+        double t = 0;
+        if(doc.equalsIgnoreCase("°F")){
+            t = 273;
+        }
         String result = pre.getString(id,null);
         if(result!=null) {
             progressBar.setVisibility(View.GONE);
@@ -126,13 +133,14 @@ public class WeatherFragment extends Fragment  {
                 JSONArray daily = jsonObject.getJSONArray("daily");
                 JSONArray weather = current.getJSONArray("weather");
                 String temp = current.getString("temp");
-                current_temp.setText(Math.round(Double.parseDouble(temp)) + "°");
+                current_temp.setText(Math.round(Double.parseDouble(temp)+t) + "°");
                 String desc = weather.getJSONObject(0).getString("description");
                 current_description.setText(desc);
                 for (int i = 0; i < hourly.length(); i++) {
                     JSONObject objArr = hourly.getJSONObject(i);
                     String dtH = objArr.getString("dt");
                     String tempH = objArr.getString("temp");
+                    tempH = Math.round(Double.parseDouble(tempH)+t)+"";
                     JSONArray weath = objArr.getJSONArray("weather");
                     String icon = weath.getJSONObject(0).getString("icon");
                     Temp newTemp = new Temp(dtH, tempH, icon);
@@ -147,9 +155,9 @@ public class WeatherFragment extends Fragment  {
                     JSONArray weath = tempDaily.getJSONArray("weather");
                     String icon = weath.getJSONObject(0).getString("icon");
                     if (i == 0) {
-                        current_min.setText(Math.round(Double.parseDouble(tempMin)) + "° / " + Math.round(Double.parseDouble(tempMax)) + "°");
+                        current_min.setText(Math.round(Double.parseDouble(tempMin)+t) + "° / " + Math.round(Double.parseDouble(tempMax)+ t) +"°");
                     } else {
-                        String tempMax_Min = Math.round(Double.parseDouble(tempMin)) + "° / " + Math.round(Double.parseDouble(tempMax)) + "°";
+                        String tempMax_Min = Math.round(Double.parseDouble(tempMin)+t) + "° / " + Math.round(Double.parseDouble(tempMax)+ t) +"°";
                         Temp newTemp = new Temp(dtH, tempMax_Min, icon);
                         dailyList.add(newTemp);
                     }
@@ -159,7 +167,7 @@ public class WeatherFragment extends Fragment  {
                 int humi = Integer.parseInt(humidi);
                 customGauge.setValue(humi);
                 String feel = current.getString("feels_like");
-                feel_like.setText(Math.round(Double.parseDouble(feel)) + "°");
+                feel_like.setText(Math.round(Double.parseDouble(feel)+ t) +"°");
                 String uvIndex = current.getString("uvi");
                 uv.setText(uvIndex);
                 String windeg = current.getString("wind_deg");

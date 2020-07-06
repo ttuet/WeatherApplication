@@ -28,11 +28,11 @@ public class WorkMangerController {
     public WorkMangerController(Context context){
         mCtx = context;
     }
-    public void setWork(){
+    public void setWork(int time){
 
 
             Constraints constraints = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build();
-            PeriodicWorkRequest.Builder myWorkBuilder = new PeriodicWorkRequest.Builder(LoadWeatherWorker.class, 1, TimeUnit.HOURS)
+            PeriodicWorkRequest.Builder myWorkBuilder = new PeriodicWorkRequest.Builder(LoadWeatherWorker.class, time, TimeUnit.HOURS)
                     .setConstraints(constraints);
             myWork = myWorkBuilder.build();
 
