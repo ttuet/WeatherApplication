@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#000"
+    android:background="#222B20"
     android:layout_height="match_parent"
     tools:context=".VIew.ListCityActivity">
     <LinearLayout
@@ -25,26 +25,32 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>
-    <FrameLayout
-        android:layout_below="@id/toolbarr"
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_city_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btn_addCity"
+        android:layout_below="@id/toolbarr"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="-4dp" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/list_city_recycler"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="#880C0C0C"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </LinearLayout>
-
-
-    </FrameLayout>
+    <Button
+        android:textSize="14sp"
+        android:id="@+id/btn_addCity"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:textAllCaps="false"
+        android:textColor="@color/text_Color"
+        android:text="Thêm thành phố"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bogoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.work.Constraints;
+import androidx.work.ListenableWorker;
 import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
@@ -44,12 +45,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     List<City> cityList;
     boolean checkGPS = false;
     SharedPreferences preCity;
+
     Gson gson;
     Location currentLocation;
     LocationManager locationManager;
     ViewPagerAdapter adapter;
     WorkMangerController mangerController;
-
+    SharedPreferences.OnSharedPreferenceChangeListener onSharedPreferenceChangeListener;
     //    TabLayout tabLayout;
 //    TabItem tab_weather;
     @Override
@@ -57,12 +59,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         addControl();
-
-
         getLocation();
-
-
         preCity = getApplicationContext().getSharedPreferences("cityList", MODE_PRIVATE);
+        preCity.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener);
         createViewPager(viewPager);
         mangerController = new WorkMangerController(getApplicationContext());
         SharedPreferences pre = getApplicationContext().getSharedPreferences("Weather",MODE_PRIVATE);
@@ -71,21 +70,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             mangerController.setWork();
         }
 
-        preCity.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
-            @Override
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-                mangerController.cancelWork();
-                mangerController.setWork();
-                adapter.notifyDataSetChanged();
-            }
-        });
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if (position == 0) {
-                    cityName.setText("Vị trí hiện tại");
-                }
                 cityName.setText(cityList.get(position).getCity());
+
             }
 
             @Override
@@ -101,8 +90,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         iconCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, AddCityActivity.class);
+                Intent intent = new Intent(MainActivity.this, ListCityActivity.class);
                 startActivity(intent);
+
             }
         });
 
@@ -111,15 +101,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     private void getLocation() {
         locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            //
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED&&ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                    new String[]{ Manifest.permission.INTERNET,Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION},
                     100);
             return;
         }
@@ -130,14 +114,23 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         viewPager = findViewById(R.id.view_pager);
         iconCity = findViewById(R.id.iconcity);
         cityName = findViewById(R.id.name_city);
+        cityList = new ArrayList<City>();
         gson = new Gson();
-//        tabLayout = findViewById(R.id.tab_layout);
+        onSharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+                mangerController.cancelWork();
+                mangerController.setWork();
+                createViewPager(viewPager);
+            }
+        };
+
     }
 
 
-    private void createViewPager(ViewPager viewPager) {
-       adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
+    private void updateList(){
+        cityList.clear();
         String jsonCity = preCity.getString("json", "i");
         if (!jsonCity.equalsIgnoreCase("i")) {
 
@@ -145,29 +138,21 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             }.getType();
 
             cityList = gson.fromJson(jsonCity, listCityType);
-
+        }
+    }
+    private void createViewPager(ViewPager viewPager) {
+       adapter = new ViewPagerAdapter(getSupportFragmentManager());
+       updateList();
 
             for (int i = 0; i < cityList.size(); i++) {
 
                 adapter.addFrag(new WeatherFragment(cityList.get(i).getId()));
             }
-        }
-
-        viewPager.setAdapter(adapter);
+            viewPager.setAdapter(adapter);
     }
 
 
-    @Override
-    protected void onStop() {
-        super.onStop();
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-    }
 
     @Override
     public void onLocationChanged(Location location) {

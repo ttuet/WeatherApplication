@@ -3,75 +3,88 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/imgd"
     android:layout_height="match_parent"
+    android:background="#222B20"
     tools:context=".VIew.AddCityActivity">
-    <LinearLayout
-        android:id="@+id/toolbarr"
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-        <ImageView
-            android:id="@+id/icon_back"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_back"
-            android:layout_width="40dp"
-            android:layout_height="40dp"/>
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:gravity="center_vertical"
-            android:textSize="18sp"
-            android:textColor="@color/text_Color"
-            android:text="Thêm thành phố"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </LinearLayout>
+
     <FrameLayout
-        android:layout_below="@id/toolbarr"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbarr">
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
+
                 <EditText
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:layout_toLeftOf="@id/btn_search"
                     android:id="@+id/edt_search"
-                    android:paddingLeft="20dp"
-                    android:textColorHint="#75FFFFFF"
-                    android:hint="Tìm thành phố"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:textColor="@color/text_Color"
+                    android:layout_toLeftOf="@id/btn_search"
                     android:background="@drawable/bogoc"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"/>
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:hint="Tìm thành phố"
+                    android:paddingLeft="20dp"
+                    android:textColor="@color/text_Color"
+                    android:textColorHint="#75FFFFFF" />
 
                 <ImageButton
                     android:id="@+id/btn_search"
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/bogoc2"
-                    android:src="@drawable/ic_search"
-                    android:layout_width="70dp"
-                    android:layout_height="match_parent" />
+                    android:src="@drawable/ic_search" />
             </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/search_city_recycler"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:background="#880C0C0C"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp" />
+            <TextView
+                android:textColor="@color/text_Color"
+                android:layout_gravity="center"
+                android:textSize="15sp"
+                android:text="Không tìm thấy kết quả nào"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
 
     </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/toolbarr"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/icon_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:text="Thêm thành phố"
+            android:textColor="@color/text_Color"
+            android:textSize="18sp" />
+    </LinearLayout>
 
 </RelativeLayout>

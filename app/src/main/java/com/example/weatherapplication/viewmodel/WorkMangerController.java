@@ -5,13 +5,18 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.work.Constraints;
+import androidx.work.ListenableWorker;
 import androidx.work.NetworkType;
+import androidx.work.Operation;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
 import com.example.weatherapplication.Model.LoadWeatherWorker;
+import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.concurrent.TimeUnit;
+
+import javax.xml.transform.Result;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -28,11 +33,13 @@ public class WorkMangerController {
             PeriodicWorkRequest.Builder myWorkBuilder = new PeriodicWorkRequest.Builder(LoadWeatherWorker.class, 1, TimeUnit.HOURS)
                     .setConstraints(constraints);
             myWork = myWorkBuilder.build();
-            WorkManager.getInstance(mCtx).enqueue(myWork);
+
+             WorkManager.getInstance(mCtx).enqueue(myWork);
+
 
     }
     public void cancelWork(){
-        WorkManager.getInstance(mCtx).cancelWorkById(myWork.getId());
+        WorkManager.getInstance(mCtx).cancelAllWork();
     }
 
 }

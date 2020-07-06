@@ -1,23 +1,23 @@
-package com.example.weatherapplication.VIew;
+package com.example.weatherapplication;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.widget.RemoteViews;
 
-import com.example.weatherapplication.R;
-
 /**
  * Implementation of App Widget functionality.
  */
-public class WeatherAppWidget extends AppWidgetProvider {
+public class WeatherWidget extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
         CharSequence widgetText = context.getString(R.string.appwidget_text);
         // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.weather_app_widget);
+
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.weather_widget);
         views.setTextViewText(R.id.appwidget_text, widgetText);
 
         // Instruct the widget manager to update the widget

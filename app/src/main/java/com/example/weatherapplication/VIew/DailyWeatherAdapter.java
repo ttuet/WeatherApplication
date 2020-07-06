@@ -24,7 +24,7 @@ public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapte
     private List<Temp> tempList;
     private LayoutInflater inflater;
     private Context mContext;
-    private DailyWeatherAdapter.ItemClickListener mClickListener;
+
     public DailyWeatherAdapter(Context context, List<Temp> tempList) {
         this.inflater = LayoutInflater.from(context);
         this.mContext = context;
@@ -57,7 +57,7 @@ public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapte
     public int getItemCount() {
         return tempList.size();
     }
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView time;
         TextView temperature;
@@ -68,26 +68,10 @@ public class DailyWeatherAdapter extends RecyclerView.Adapter<DailyWeatherAdapte
             time = itemView.findViewById(R.id.daily_dt);
             temperature = itemView.findViewById(R.id.daily_tempmin);
             iconWeather = itemView.findViewById(R.id.daily_icon);
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
 
         }
-    }
-    public String getItem(int id) {
-        return tempList.get(id).getTime();
+
+
     }
 
-    // allows clicks events to be caught
-    public void setClickListener(DailyWeatherAdapter.ItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
-    }
-
-    // parent activity will implement this method to respond to click events
-    public interface ItemClickListener {
-        void onItemClick(View view, int position);
-    }
 }

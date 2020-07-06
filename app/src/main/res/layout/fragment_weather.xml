@@ -13,6 +13,7 @@
         android:scaleX="1"
 
         android:scrollbars="none">
+
     <LinearLayout
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
@@ -23,6 +24,13 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="300dp">
+            <ProgressBar
+                android:id="@+id/progrss"
+                android:visibility="gone"
+                android:progressBackgroundTint="@color/text_Color"
+                android:layout_centerInParent="true"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
 
             <TextView
 
@@ -31,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
                 android:gravity="center"
-                android:text="26"
+
                 android:textColor="@color/text_Color"
                 android:textSize="@dimen/fontTemp" />
 
@@ -42,7 +50,7 @@
                 android:layout_below="@id/current_temp"
                 android:layout_marginTop="-5dp"
                 android:gravity="center|top"
-                android:text="Intermittent Clouds"
+
                 android:textColor="@color/text_Color"
                 android:textSize="25sp" />
 
@@ -53,7 +61,7 @@
                 android:layout_below="@id/current_description"
                 android:layout_marginTop="-14dp"
                 android:gravity="center"
-                android:text="26 / 24"
+
                 android:textColor="@color/text_Color"
                 android:textSize="18sp" />
 

@@ -14,22 +14,46 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class Utils {
     public static String getJsonFromServer(String url) throws IOException {
 
-        BufferedReader inputStream = null;
+//        BufferedReader inputStream = null;
+//
+//        URL jsonUrl = new URL(url);
+//        URLConnection dc = jsonUrl.openConnection();
+//
+//        dc.setConnectTimeout(5000);
+//        dc.setReadTimeout(5000);
+//
+//        inputStream = new BufferedReader(new InputStreamReader(
+//                dc.getInputStream()));
+//        // read the JSON results into a string
+//        String jsonResult = inputStream.readLine();
+//        return jsonResult;
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+        Response responses = null;
 
-        URL jsonUrl = new URL(url);
-        URLConnection dc = jsonUrl.openConnection();
+        try {
+            responses = client.newCall(request).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String jsonData = null;
+        try {
+            jsonData = responses.body().string();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return jsonData;
 
-        dc.setConnectTimeout(5000);
-        dc.setReadTimeout(5000);
 
-        inputStream = new BufferedReader(new InputStreamReader(
-                dc.getInputStream()));
-        // read the JSON results into a string
-        String jsonResult = inputStream.readLine();
-        return jsonResult;
     }
     public static String getJsonFromAssets(Context context, String fileName) {
         String jsonString;

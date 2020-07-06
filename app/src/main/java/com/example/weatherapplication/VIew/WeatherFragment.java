@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +31,7 @@ import pl.pawelkleczkowski.customgauge.CustomGauge;
 public class WeatherFragment extends Fragment  {
     MyRecyclerViewAdapter myRecyclerViewAdapter;
     DailyWeatherAdapter dailyAdapter;
-
+    ProgressBar progressBar;
     List<Temp> dailyList;
     List<Temp> hourlyList;
 
@@ -50,7 +51,7 @@ public class WeatherFragment extends Fragment  {
 
 
     SharedPreferences pre;
-
+    SharedPreferences.OnSharedPreferenceChangeListener onSharedPreferenceChangeListener;
 
 
     public WeatherFragment(String id) {
@@ -74,7 +75,7 @@ public class WeatherFragment extends Fragment  {
 
         dailyAdapter = new DailyWeatherAdapter(getContext(),dailyList);
         myRecyclerViewAdapter = new MyRecyclerViewAdapter(getContext(),hourlyList);
-
+        pre.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext());
         LinearLayoutManager layoutManager = new LinearLayoutManager(view.getContext(),LinearLayoutManager.HORIZONTAL,false);
         dailyForecast.setLayoutManager(linearLayoutManager);
@@ -82,12 +83,6 @@ public class WeatherFragment extends Fragment  {
         recyclerView.setAdapter(myRecyclerViewAdapter);
         dailyForecast.setAdapter(dailyAdapter);
 
-        pre.registerOnSharedPreferenceChangeListener(new SharedPreferences.OnSharedPreferenceChangeListener() {
-            @Override
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-                mapValue();
-            }
-        });
 
 
 
@@ -107,6 +102,13 @@ public class WeatherFragment extends Fragment  {
         uv= view.findViewById(R.id.uv);
         wind_deg = view.findViewById(R.id.wind);
         wind_speed = view.findViewById(R.id.wind_speed);
+        progressBar = view.findViewById(R.id.progrss);
+        onSharedPreferenceChangeListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+                mapValue();
+            }
+        };
     }
 
     private void mapValue() {
@@ -114,81 +116,66 @@ public class WeatherFragment extends Fragment  {
         hourlyList = new ArrayList<Temp>();
         pre = getContext().getSharedPreferences("Weather",Context.MODE_PRIVATE);
         String result = pre.getString(id,null);
-        JSONObject jsonObject = null;
-        try {
-            jsonObject = new JSONObject(result);
-            JSONObject current = jsonObject.getJSONObject("current");
-            JSONArray hourly = jsonObject.getJSONArray("hourly");
-            JSONArray daily = jsonObject.getJSONArray("daily");
-            JSONArray weather = current.getJSONArray("weather");
-            String temp = current.getString("temp");
-            current_temp.setText(Math.round(Double.parseDouble(temp))+"°");
-            String desc = weather.getJSONObject(0).getString("description");
-            current_description.setText(desc);
-            for(int i = 0; i<hourly.length();i++){
-                JSONObject objArr = hourly.getJSONObject(i);
-                String dtH = objArr.getString("dt");
-                String tempH = objArr.getString("temp");
-                JSONArray weath = objArr.getJSONArray("weather");
-                String icon = weath.getJSONObject(0).getString("icon");
-                Temp newTemp = new Temp(dtH,tempH,icon);
-                hourlyList.add(newTemp);
-            }
-            for(int i = 0;i<daily.length();i++){
-                JSONObject tempDaily = daily.getJSONObject(i);
-                String dtH = tempDaily.getString("dt");
-                JSONObject tempH = tempDaily.getJSONObject("temp");
-                String tempMin = tempH.getString("min");
-                String tempMax = tempH.getString("max");
-                JSONArray weath = tempDaily.getJSONArray("weather");
-                String icon = weath.getJSONObject(0).getString("icon");
-                if(i==0){
-                    current_min.setText(Math.round(Double.parseDouble(tempMin))+"° / "+Math.round(Double.parseDouble(tempMax))+"°");
+        if(result!=null) {
+            progressBar.setVisibility(View.GONE);
+            JSONObject jsonObject = null;
+            try {
+                jsonObject = new JSONObject(result);
+                JSONObject current = jsonObject.getJSONObject("current");
+                JSONArray hourly = jsonObject.getJSONArray("hourly");
+                JSONArray daily = jsonObject.getJSONArray("daily");
+                JSONArray weather = current.getJSONArray("weather");
+                String temp = current.getString("temp");
+                current_temp.setText(Math.round(Double.parseDouble(temp)) + "°");
+                String desc = weather.getJSONObject(0).getString("description");
+                current_description.setText(desc);
+                for (int i = 0; i < hourly.length(); i++) {
+                    JSONObject objArr = hourly.getJSONObject(i);
+                    String dtH = objArr.getString("dt");
+                    String tempH = objArr.getString("temp");
+                    JSONArray weath = objArr.getJSONArray("weather");
+                    String icon = weath.getJSONObject(0).getString("icon");
+                    Temp newTemp = new Temp(dtH, tempH, icon);
+                    hourlyList.add(newTemp);
                 }
-                else{
-                    String tempMax_Min = Math.round(Double.parseDouble(tempMin))+"° / "+Math.round(Double.parseDouble(tempMax))+"°";
-                    Temp newTemp = new Temp(dtH,tempMax_Min,icon);
-                    dailyList.add(newTemp);
+                for (int i = 0; i < daily.length(); i++) {
+                    JSONObject tempDaily = daily.getJSONObject(i);
+                    String dtH = tempDaily.getString("dt");
+                    JSONObject tempH = tempDaily.getJSONObject("temp");
+                    String tempMin = tempH.getString("min");
+                    String tempMax = tempH.getString("max");
+                    JSONArray weath = tempDaily.getJSONArray("weather");
+                    String icon = weath.getJSONObject(0).getString("icon");
+                    if (i == 0) {
+                        current_min.setText(Math.round(Double.parseDouble(tempMin)) + "° / " + Math.round(Double.parseDouble(tempMax)) + "°");
+                    } else {
+                        String tempMax_Min = Math.round(Double.parseDouble(tempMin)) + "° / " + Math.round(Double.parseDouble(tempMax)) + "°";
+                        Temp newTemp = new Temp(dtH, tempMax_Min, icon);
+                        dailyList.add(newTemp);
+                    }
                 }
-            }
-            String humidi = current.getString("humidity");
-            humidity.setText(humidi+'%');
-            int humi = Integer.parseInt(humidi);
-            customGauge.setValue(humi);
-            String feel = current.getString("feels_like");
-            feel_like.setText(Math.round(Double.parseDouble(feel))+"°");
-            String uvIndex = current.getString("uvi");
-            uv.setText(uvIndex);
-            String windeg = current.getString("wind_deg");
-            wind_deg.setText(windeg+"°");
-            String winSpeed = current.getString("wind_speed");
-            wind_speed.setText(winSpeed+" m/s");
+                String humidi = current.getString("humidity");
+                humidity.setText(humidi + '%');
+                int humi = Integer.parseInt(humidi);
+                customGauge.setValue(humi);
+                String feel = current.getString("feels_like");
+                feel_like.setText(Math.round(Double.parseDouble(feel)) + "°");
+                String uvIndex = current.getString("uvi");
+                uv.setText(uvIndex);
+                String windeg = current.getString("wind_deg");
+                wind_deg.setText(windeg + "°");
+                String winSpeed = current.getString("wind_speed");
+                wind_speed.setText(winSpeed + " m/s");
 
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        else{
+            progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
 

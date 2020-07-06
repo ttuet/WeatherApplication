@@ -24,8 +24,8 @@ import java.util.List;
 import static android.content.Context.MODE_PRIVATE;
 
 public class LoadWeatherWorker extends Worker{
-    ArrayList<City> cityArrayList ;
-    String key = "c072ec8e783580454010f40ede063200";
+
+    String key = "c3b45d9603f611484b21cba61752dd81";
     public LoadWeatherWorker(@NonNull Context context, @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
     }
@@ -59,6 +59,7 @@ public class LoadWeatherWorker extends Worker{
                 Log.i("Test", "doWork: " + "Faill");
             }
         }
+
         return Result.success();
     }
 
