@@ -32,7 +32,7 @@ public class ListCityAdapter extends RecyclerView.Adapter<ListCityAdapter.ViewHo
     private List<String> descList;
     private LayoutInflater inflater;
     private Context mContext;
-//    private ListCityAdapter.ItemLongClickListener mLongClickListener;
+    //    private ListCityAdapter.ItemLongClickListener mLongClickListener;
     public ListCityAdapter(Context context, List<String> cityList,List<String> tempList,List<String> descList) {
         this.inflater = LayoutInflater.from(context);
         this.mContext = context;

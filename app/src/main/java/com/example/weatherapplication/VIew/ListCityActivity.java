@@ -78,14 +78,12 @@ public class ListCityActivity extends AppCompatActivity  {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         listCityView.setLayoutManager(linearLayoutManager);
         listCityView.setAdapter(listCityAdapter);
-        Toast.makeText(ListCityActivity.this,nameList.size()+"",Toast.LENGTH_SHORT).show();
         iconBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-
         btnAddCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

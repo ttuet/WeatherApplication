@@ -55,7 +55,7 @@ public class WeatherFragment extends Fragment  {
 
 
     public WeatherFragment(String id) {
-            this.id = id;
+        this.id = id;
     }
 
     @Override

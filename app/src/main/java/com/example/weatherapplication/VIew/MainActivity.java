@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     ViewPager viewPager;
     ImageView iconCity;
+    
     TextView cityName;
     List<City> cityList;
     boolean checkGPS = false;
@@ -141,14 +142,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         }
     }
     private void createViewPager(ViewPager viewPager) {
-       adapter = new ViewPagerAdapter(getSupportFragmentManager());
-       updateList();
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        updateList();
 
-            for (int i = 0; i < cityList.size(); i++) {
+        for (int i = 0; i < cityList.size(); i++) {
 
-                adapter.addFrag(new WeatherFragment(cityList.get(i).getId()));
-            }
-            viewPager.setAdapter(adapter);
+            adapter.addFrag(new WeatherFragment(cityList.get(i).getId()));
+        }
+        viewPager.setAdapter(adapter);
     }
 
 

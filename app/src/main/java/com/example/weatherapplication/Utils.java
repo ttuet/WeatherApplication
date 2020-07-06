@@ -19,6 +19,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class Utils {
+
     public static String getJsonFromServer(String url) throws IOException {
 
 //        BufferedReader inputStream = null;
