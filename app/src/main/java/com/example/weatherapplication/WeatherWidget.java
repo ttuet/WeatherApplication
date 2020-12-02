@@ -1,9 +1,11 @@
 package com.example.weatherapplication;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.widget.RemoteViews;
@@ -11,6 +13,7 @@ import android.widget.RemoteViews;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.AppWidgetTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.example.weatherapplication.VIew.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -59,7 +62,7 @@ public class WeatherWidget extends AppWidgetProvider {
                 .asBitmap()
                 .load(iconUrl)
                 .into( appWidgetTarget );
-
+//dsdsdsdsdsd
         pushWidgetUpdate(context, rv);
     }
 
