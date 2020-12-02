@@ -1,4 +1,4 @@
-package com.example.weatherapplication.viewmodel;
+package com.example.weatherapplication;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -32,12 +32,12 @@ public class WorkMangerController {
 
 
             Constraints constraints = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build();
-            PeriodicWorkRequest.Builder myWorkBuilder = new PeriodicWorkRequest.Builder(LoadWeatherWorker.class, time, TimeUnit.HOURS)
-                    .setConstraints(constraints);
-            myWork = myWorkBuilder.build();
+        PeriodicWorkRequest.Builder myWorkBuilder = new PeriodicWorkRequest.Builder(LoadWeatherWorker.class, time, TimeUnit.HOURS)
+                .setConstraints(constraints);
+        myWork = myWorkBuilder.build();
 
-             WorkManager.getInstance(mCtx)
-                     .enqueue(myWork);
+        WorkManager.getInstance(mCtx).
+        enqueue(myWork);
 
 
     }
