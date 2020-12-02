@@ -62,7 +62,7 @@ public class WeatherWidget extends AppWidgetProvider {
                 .asBitmap()
                 .load(iconUrl)
                 .into( appWidgetTarget );
-
+//dsdsdsdsdsd
         pushWidgetUpdate(context, rv);
     }
 
